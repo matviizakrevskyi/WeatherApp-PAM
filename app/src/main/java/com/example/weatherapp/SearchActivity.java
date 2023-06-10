@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
 
+    private DatabaseHelper databaseHelper;
     private EditText inputCityName;
     private TextView errorStatusView;
     private TextView cityNameView;
@@ -30,6 +32,8 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        databaseHelper = new DatabaseHelper(this);
 
         inputCityName = findViewById(R.id.inputCityName);
 
@@ -47,7 +51,7 @@ public class SearchActivity extends AppCompatActivity {
     public void onClick(View v) {
         String cityName = inputCityName.getText().toString();
         FetchWeatherTask task = new FetchWeatherTask();
-        task.execute(cityName); // Replace "London" with the desired city
+        task.execute(cityName);
     }
 
     private class FetchWeatherTask extends AsyncTask<String, Void, Map<String, String>> {
@@ -65,16 +69,6 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Map<String, String> weatherData) {
             if (weatherData != null) {
-                String weatherInfo = "Temperature: " + weatherData.get("temperature") + "°C\n" +
-                        "Min Temperature: " + weatherData.get("minTemperature") + "°C\n" +
-                        "Max Temperature: " + weatherData.get("maxTemperature") + "°C\n" +
-                        "Description: " + weatherData.get("description") + "\n" +
-                        "Main: " + weatherData.get("main") + "\n" +
-                        "Humidity: " + weatherData.get("humidity") + "%\n" +
-                        "City: " + weatherData.get("cityName") + "\n" +
-                        "Wind Speed: " + weatherData.get("windSpeed") + " m/s";
-
-                System.out.println(weatherInfo);
                 errorStatusView.setText("");
                 cityNameView.setText(weatherData.get("cityName"));
                 mainTempView.setText(weatherData.get("temperature") + "°C");
@@ -91,5 +85,43 @@ public class SearchActivity extends AppCompatActivity {
     public void backToMainActivity(View v){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void addCity(View v) {
+        TextView cityNameTextView = findViewById(R.id.cityName);
+        String cityName = cityNameTextView.getText().toString().trim();
+
+
+        System.out.println(cityNameTextView.getText());
+        System.out.println(cityName);
+        if (cityNameTextView.getText() == cityName){
+            System.out.println(cityName);
+        }
+
+        if (!cityName.isEmpty() && cityNameTextView.getText().toString() != "City Not Found") {
+            long id = databaseHelper.addCity(cityName);
+            if (id != -1) {
+                Toast.makeText(SearchActivity.this, "City added successfully", Toast.LENGTH_SHORT).show();
+            } else if (id == -2) {
+                Toast.makeText(SearchActivity.this, "City is already added", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(SearchActivity.this, "Failed to add city", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(SearchActivity.this, "Please enter a city name", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void deleteCity(View v) {
+        TextView cityNameTextView = findViewById(R.id.cityName);
+        String cityName = cityNameTextView.getText().toString().trim();
+
+        if (!cityName.isEmpty()) {
+            databaseHelper.deleteCity(cityName);
+            Toast.makeText(SearchActivity.this, "City deleted successfully", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(SearchActivity.this, "Please enter a city name", Toast.LENGTH_SHORT).show();
+        }
     }
 }

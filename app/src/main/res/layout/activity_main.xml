@@ -28,6 +28,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="310dp"
         android:width="200dp"
+        android:onClick="startSavedActivity"
         android:text="List"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
