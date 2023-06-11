@@ -26,7 +26,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="12dp"
-        android:onClick="onClick"
+        android:onClick="searchButtonClick"
         android:text="Search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/inputCityName"
@@ -44,14 +44,14 @@
         app:srcCompat="@drawable/baseline_arrow_back_24" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/mainImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputCityName"
-        app:srcCompat="@drawable/sun" />
+        app:srcCompat="@drawable/clear" />
 
     <TextView
         android:id="@+id/cityName"
@@ -63,7 +63,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/mainImage" />
 
     <TextView
         android:id="@+id/tempNow"

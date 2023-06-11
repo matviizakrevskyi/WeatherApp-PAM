@@ -44,9 +44,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, new String[]{cityName});
         if (cursor.getCount() > 0) {
             // City already exists, return -1 to indicate failure
+
             cursor.close();
             db.close();
-            return -2;
+            return -1;
         }
         cursor.close();
 
