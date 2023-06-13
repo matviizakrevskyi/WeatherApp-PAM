@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.getCount() > 0) {
             cursor.close();
             db.close();
-            return -1;  // City already exists, return -1 to indicate failure
+            return -2;  // City already exists, return -1 to indicate failure
         }
         cursor.close();
 

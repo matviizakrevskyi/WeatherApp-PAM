@@ -102,17 +102,27 @@ public class SearchActivity extends AppCompatActivity {
         TextView cityNameTextView = findViewById(R.id.cityName);
         String cityName = cityNameTextView.getText().toString().trim();
 
+        System.out.println(cityName);
+
         if (!cityName.isEmpty() && !cityNameTextView.getText().equals("City Not Found")) {
             long id = databaseHelper.addCity(cityName);
             if (id != -1) {
                 Toast.makeText(SearchActivity.this, "City added successfully", Toast.LENGTH_SHORT).show();
+                System.out.println("City added successfully");
+                errorStatusView.setText("City added successfully");
             } else if (id == -2) {
                 Toast.makeText(SearchActivity.this, "City is already added", Toast.LENGTH_SHORT).show();
+                System.out.println("City is already added");
+                errorStatusView.setText("City is already added");
             } else {
                 Toast.makeText(SearchActivity.this, "Failed to add city", Toast.LENGTH_SHORT).show();
+                System.out.println("Failed to add city");
+                errorStatusView.setText("Failed to add city");
             }
         } else {
             Toast.makeText(SearchActivity.this, "Please enter a city name", Toast.LENGTH_SHORT).show();
+            System.out.println("Please enter a city name");
+            errorStatusView.setText("Please enter a city name");
         }
 
     }
@@ -124,8 +134,10 @@ public class SearchActivity extends AppCompatActivity {
         if (!cityName.isEmpty()) {
             databaseHelper.deleteCity(cityName);
             Toast.makeText(SearchActivity.this, "City deleted successfully", Toast.LENGTH_SHORT).show();
+            errorStatusView.setText("City deleted successfully");
         } else {
             Toast.makeText(SearchActivity.this, "Please enter a city name", Toast.LENGTH_SHORT).show();
+            errorStatusView.setText("Please enter a city name");
         }
     }
 }
