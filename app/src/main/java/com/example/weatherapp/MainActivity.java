@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void startCategoryActivity(View v) {
+    public void startSearchActivity(View v) {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }

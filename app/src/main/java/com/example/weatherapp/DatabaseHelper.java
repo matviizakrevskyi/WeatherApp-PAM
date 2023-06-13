@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 2) {
-            // Perform necessary upgrades for your database schema
+
         }
     }
 
@@ -43,11 +43,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 " WHERE " + COLUMN_NAME + " = ?";
         Cursor cursor = db.rawQuery(query, new String[]{cityName});
         if (cursor.getCount() > 0) {
-            // City already exists, return -1 to indicate failure
-
             cursor.close();
             db.close();
-            return -1;
+            return -1;  // City already exists, return -1 to indicate failure
         }
         cursor.close();
 

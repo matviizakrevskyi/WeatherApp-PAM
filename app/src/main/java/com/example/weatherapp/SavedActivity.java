@@ -2,6 +2,7 @@ package com.example.weatherapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -95,8 +96,6 @@ public class SavedActivity extends AppCompatActivity {
                 showNewView(); // Show the newView
                 FetchWeatherTask task = new FetchWeatherTask();
                 task.execute(cityName);
-                // Handle button click event
-                // Implement your logic here for when a city button is clicked
             }
         });
 
@@ -105,12 +104,17 @@ public class SavedActivity extends AppCompatActivity {
 
 
     //Navigation
-    public void onPreviousClick(View view) {
+    public void backToMainActivity(View v){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void onPreviousClick(View v) {
         currentPage--;
         loadCities();
     }
 
-    public void onNextClick(View view) {
+    public void onNextClick(View v) {
         currentPage++;
         loadCities();
     }
